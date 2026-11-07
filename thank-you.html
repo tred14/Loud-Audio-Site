@@ -31,13 +31,19 @@
     <div class="card" style="margin-bottom:28px;">
       <span class="eyebrow">Order Summary</span>
       <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
-        <h3 id="orderService" style="margin:0;">Mastering</h3>
-        <span class="price" id="orderPrice" style="margin:0;">$80</span>
+        <h3 id="orderService" style="margin:0;">Your order</h3>
+        <span class="price" id="orderPrice" style="margin:0;"></span>
       </div>
       <p class="muted" id="orderRef" style="margin:0;">Reference: pending</p>
     </div>
 
-    <div class="card">
+    <div class="card" id="recordingCard" style="display:none;">
+      <span class="eyebrow">Next Step</span>
+      <h3 style="margin-bottom:.4em;">Let's schedule your session</h3>
+      <p>We'll email you shortly to book your recording time. Check your inbox for your payment confirmation, and reply with a few days and times that work for you.</p>
+    </div>
+
+    <div class="card" id="uploadCard">
       <span class="eyebrow">Upload Your Files</span>
       <div class="upload-drop" id="dropZone" tabindex="0" role="button" aria-label="Upload files">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
@@ -56,7 +62,7 @@
       <p id="uploadStatus" class="field-hint" role="status"></p>
     </div>
 
-    <div class="form-note">
+    <div class="form-note" id="uploadNote">
       <span>ⓘ</span>
       <span>Files are uploaded securely and linked to your order automatically. You'll get a follow-up email once your engineer starts work.</span>
     </div>
@@ -81,6 +87,19 @@
   const sessionId = params.get('session_id');
   if(sessionId){
     document.getElementById('orderRef').textContent = 'Reference: ' + sessionId.slice(-12);
+    // Show what was actually purchased
+    fetch(`${API_BASE}/api/session/${encodeURIComponent(sessionId)}`)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(order => {
+        if(order.serviceName) document.getElementById('orderService').textContent = order.serviceName + (order.hours ? ` — ${order.hours} hr` : '');
+        if(order.amount != null) document.getElementById('orderPrice').textContent = formatPrice(order.amount);
+        if(order.serviceId === 'recording'){
+          document.getElementById('uploadCard').style.display = 'none';
+          document.getElementById('uploadNote').style.display = 'none';
+          document.getElementById('recordingCard').style.display = '';
+        }
+      })
+      .catch(() => {});
   }
 
   document.getElementById('uploadBtn').addEventListener('click', async () => {

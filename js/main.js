@@ -101,12 +101,13 @@ function initUploadWidget(dropId, inputId, listId){
 // ===================== STRIPE CHECKOUT =====================
 // Frontend just asks the backend to create a Checkout Session, then redirects.
 // Backend route + Stripe secret key live on Railway — see /backend/server.js
-async function startCheckout(serviceId, serviceName, priceCents, customerEmail){
+// Only the service ID is sent — the backend decides the price.
+async function startCheckout(serviceId, customerEmail){
   try{
     const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ serviceId, serviceName, priceCents, customerEmail })
+      body: JSON.stringify({ serviceId, customerEmail })
     });
     if(!res.ok) throw new Error('Checkout session failed');
     const data = await res.json();
@@ -120,14 +121,26 @@ async function startCheckout(serviceId, serviceName, priceCents, customerEmail){
 // wire up any [data-checkout] buttons declared in HTML
 document.querySelectorAll('[data-checkout]').forEach(btn => {
   btn.addEventListener('click', () => {
-    startCheckout(
-      btn.dataset.serviceId,
-      btn.dataset.serviceName,
-      parseInt(btn.dataset.priceCents, 10),
-      null
-    );
+    const emailField = document.getElementById('bEmail');
+    startCheckout(btn.dataset.serviceId, (emailField && emailField.value) || null);
   });
 });
+
+// ===================== LIVE PRICES =====================
+// Prices live on the backend (SERVICES in server.js). The HTML has the current
+// prices as a fallback; this replaces them with the live values on load.
+window.LOUD_PRICES = {};
+function formatPrice(cents){ return '$' + (cents % 100 ? (cents/100).toFixed(2) : cents/100); }
+fetch(`${API_BASE}/api/prices`)
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(prices => {
+    window.LOUD_PRICES = prices;
+    document.querySelectorAll('[data-price-for]').forEach(el => {
+      const svc = prices[el.dataset.priceFor];
+      if(svc) el.textContent = formatPrice(svc.cents);
+    });
+  })
+  .catch(() => { /* keep the HTML fallback prices */ });
 
 // ===================== AI INTAKE CHATBOT =====================
 (function(){

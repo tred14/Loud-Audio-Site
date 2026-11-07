@@ -33,8 +33,8 @@
   "name": "Loud Audio Mastering Studio",
   "url": "https://loudrecording.com",
   "email": "hello@loudrecording.com",
-  "description": "Professional mixing, mastering, and vocal production for artists and producers.",
-  "priceRange": "$80 – $150",
+  "description": "Professional recording, mixing, mastering, and vocal production for artists and producers.",
+  "priceRange": "$26 – $120",
   "openingHours": ["Mo-Fr 10:00-20:00", "Sa 12:00-18:00"],
   "sameAs": [
     "https://instagram.com/loudaudiomastering",
@@ -47,14 +47,20 @@
     "itemListElement": [
       {
         "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Recording (per hour)" },
+        "price": "26",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
         "itemOffered": { "@type": "Service", "name": "Mixing" },
-        "price": "150",
+        "price": "100",
         "priceCurrency": "USD"
       },
       {
         "@type": "Offer",
         "itemOffered": { "@type": "Service", "name": "Mastering" },
-        "price": "80",
+        "price": "60",
         "priceCurrency": "USD"
       },
       {
@@ -155,25 +161,32 @@
       <h2>Pick your stage.</h2>
       <p>Every package includes revisions and direct file delivery once your payment clears — no extra back and forth.</p>
     </div>
-    <div class="grid-3">
+    <div class="grid-4">
+      <div class="card svc-card">
+        <div class="lvl"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+        <h3>Recording</h3>
+        <p class="price"><span data-price-for="recording">$26</span><sup>/ hour</sup></p>
+        <p>Record only — no mixing or mastering. Our most affordable option.</p>
+        <a href="services.html#recording" class="btn btn-outline btn-block">View Details</a>
+      </div>
       <div class="card svc-card">
         <div class="lvl"><span class="on"></span><span></span><span></span><span></span><span></span></div>
         <h3>Mixing</h3>
-        <p class="price">$150<sup>/ song</sup></p>
+        <p class="price"><span data-price-for="mixing">$100</span><sup>/ song</sup></p>
         <p>Balance, depth, and width for a track that's ready to master.</p>
         <a href="services.html" class="btn btn-outline btn-block">View Details</a>
       </div>
       <div class="card svc-card featured">
         <div class="lvl"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
         <h3>Mastering</h3>
-        <p class="price">$80<sup>/ song</sup></p>
+        <p class="price"><span data-price-for="mastering">$60</span><sup>/ song</sup></p>
         <p>Loudness, polish, and translation across every playback system.</p>
         <a href="services.html" class="btn btn-primary btn-block">View Details</a>
       </div>
       <div class="card svc-card">
         <div class="lvl"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
         <h3>Vocal Production</h3>
-        <p class="price">$120<sup>/ song</sup></p>
+        <p class="price"><span data-price-for="vocal">$120</span><sup>/ song</sup></p>
         <p>Tuning, comping, and processing to bring your vocal forward.</p>
         <a href="services.html" class="btn btn-outline btn-block">View Details</a>
       </div>

@@ -24,7 +24,7 @@
     btn.addEventListener('click', () => {
       gtag('event', 'begin_checkout', {
         currency: 'USD',
-        value: parseInt(btn.dataset.priceCents || 0) / 100,
+        value: ((window.LOUD_PRICES || {})[btn.dataset.serviceId]?.cents || 0) / 100,
         items: [{ item_name: btn.dataset.serviceName || 'Service' }]
       });
     });

@@ -64,8 +64,9 @@
           <div class="field">
             <label for="bService">Service needed</label>
             <select id="bService">
-              <option value="mixing">Mixing — $150</option>
-              <option value="mastering" selected>Mastering — $80</option>
+              <option value="recording">Recording only — $26/hour</option>
+              <option value="mixing">Mixing — $100</option>
+              <option value="mastering" selected>Mastering — $60</option>
               <option value="vocal">Vocal Production — $120</option>
               <option value="unsure">Not sure yet</option>
             </select>
@@ -100,10 +101,11 @@
       <span class="eyebrow">Step 2</span>
       <h3 style="margin-bottom:.6em;">Choose a service & pay</h3>
       <p style="margin-bottom:1.6em;">Your project details are attached automatically. After payment you'll land on a confirmation page to finish uploading any remaining files.</p>
-      <div class="grid-3">
-        <button class="btn btn-primary" data-checkout data-service-id="mixing" data-service-name="Mixing" data-price-cents="15000">Mixing — $150</button>
-        <button class="btn btn-primary" data-checkout data-service-id="mastering" data-service-name="Mastering" data-price-cents="8000">Mastering — $80</button>
-        <button class="btn btn-primary" data-checkout data-service-id="vocal" data-service-name="Vocal Production" data-price-cents="12000">Vocal — $120</button>
+      <div class="grid-4">
+        <button class="btn btn-primary" data-checkout data-service-id="recording" data-service-name="Recording"><span>Recording — <span data-price-for="recording">$26</span>/hr</span></button>
+        <button class="btn btn-primary" data-checkout data-service-id="mixing" data-service-name="Mixing"><span>Mixing — <span data-price-for="mixing">$100</span></span></button>
+        <button class="btn btn-primary" data-checkout data-service-id="mastering" data-service-name="Mastering"><span>Mastering — <span data-price-for="mastering">$60</span></span></button>
+        <button class="btn btn-primary" data-checkout data-service-id="vocal" data-service-name="Vocal Production"><span>Vocal — <span data-price-for="vocal">$120</span></span></button>
       </div>
     </div>
 
@@ -169,7 +171,6 @@
       if(email) btn.dataset.customerEmail = email;
     });
   });
-<script src="js/main.js"></script>
-   <script src="js/seo.js"></script>
+<script src="js/seo.js"></script>
    </body>
    </html>
